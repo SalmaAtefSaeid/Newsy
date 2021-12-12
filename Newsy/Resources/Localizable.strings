@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  Newsy
+
+  Created by Salma Atef on 09/12/2021.
+  
+*/
+
+"Onboarding" = "Onboarding";
+"TopHeadlines" = "TopHeadlines";
+"Sources" = "Sources";
+"Search" = "Search";
+"Favorites" = "Favorites";
+"SearchArticles" = "Search articles...";
+"AboutSource" = "About source:\n";
+"RemoveFromFavorites" = "Remove from favorites";
+"AddToFavorites" = "Add to favorites";
+"Share" = "Share";
+"Countries" = "Countries";
+
+// MARK: - Categories
+"Categories" = "Categories";
+"business" = "business";
+"entertainment" = "entertainment";
+"general" = "general";
+"health" = "health";
+"science" = "science";
+"sports" = "sports";
+"technology" = "technology";
+
+// MARK: Errors
+"YouMadeTooManyRequests" = "You made too many requests within a window of time and have been rate limited. Back off for a while.";
+"ServerError" = "Server error.";
+"EmptyData" = "Empty data.";
+"DataHasInvalidFormat" = "Data has invalid format.";
+"SomethingGoesWrong" = "Something goes wrong.";
+"You'veDeniedLocationAuthorization" = "You've denied location authorization";
