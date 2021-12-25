@@ -21,5 +21,6 @@ class OnboardingViewModel: ObservableObject {
     
     func saveArticleRequiredInfo(category: Category, country: Country) {
         ArticleHelper.saveArticleRequiredInfo(category: category, country: country)
+        ViewRouter.sharedInstance().saveData(didLaunchBefore: true)
     }
 }

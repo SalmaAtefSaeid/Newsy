@@ -7,16 +7,25 @@
 
 import Foundation
 
-class ViewRouter: ObservableObject {
+class ViewRouter: NSObject, ObservableObject {
+    
+    private static var shared: ViewRouter = ViewRouter()
+    @Published var currentPage: String
+    
+    class func sharedInstance() -> ViewRouter {
+        return shared
+    }
 
-    init() {
+    private override init() {
         if !UserDefaults.standard.bool(forKey: "didLaunchBefore") {
-            UserDefaults.standard.set(true, forKey: "didLaunchBefore")
             currentPage = "onboardingView"
         } else {
             currentPage = "homeView"
         }
     }
     
-    @Published var currentPage: String
+    func saveData(didLaunchBefore: Bool) {
+        UserDefaults.standard.set(didLaunchBefore, forKey: "didLaunchBefore")
+    }
+    
 }

@@ -74,4 +74,9 @@ class HomeViewModel: ObservableObject {
         }
         return articles
     }
+    
+    func deleteArticles() {
+        PersistenceController.shared.delete(entityName: "ArticleDB")
+        ViewRouter.sharedInstance().saveData(didLaunchBefore: false)
+    }
 }

@@ -143,10 +143,8 @@ struct CustomPickerView: View {
                 .padding(.horizontal,10)
                 .frame(height: frameHeight)
                 .padding(.top, 20)
-                //                Spacer()
             }
         }
-        //        .edgesIgnoringSafeArea(.all)
         .onAppear {
             filteredItems = items
             setHeight()

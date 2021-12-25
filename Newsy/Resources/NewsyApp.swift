@@ -13,7 +13,7 @@ struct NewsyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            SplashView(viewRouter: ViewRouter())
+            SplashView(viewRouter: ViewRouter.sharedInstance())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

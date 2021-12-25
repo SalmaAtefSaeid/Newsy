@@ -14,35 +14,54 @@ struct HomeView: View {
     @ObservedObject var homeViewModel = HomeViewModel()
     @State var searchText = ""
     @State var searching = false
-    @State var presentAlert = false
+    @State var shouldPopToRootView = false
     var timer = Timer.publish(every: 30 * 60, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        NavigationView {
-            if homeViewModel.networkError != nil {
-                RetryView(text: homeViewModel.networkError?.localizedDescription ?? "error", homeViewModel: homeViewModel)
-            } else {
-                if homeViewModel.noArticleFound == true {
-                    NoArticleView()
+        if shouldPopToRootView {
+            OnboardingView()
+        } else {
+            NavigationView {
+                
+                if homeViewModel.networkError != nil {
+                    RetryView(text: homeViewModel.networkError?.localizedDescription ?? "error", homeViewModel: homeViewModel)
                 } else {
-                    if homeViewModel.articles.isEmpty {
-                        ProgressView("Downloading...")
-                            .progressViewStyle(CircularProgressViewStyle())
+                    if homeViewModel.noArticleFound == true {
+                        NoArticleView()
                     } else {
-                        VStack(alignment: .leading) {
-                            SearchBar(searchText: $searchText)
-                                .padding([.top, .bottom], 16)
-                            homeViewList
+                        if homeViewModel.articles.isEmpty {
+                            ProgressView("Downloading...")
+                                .progressViewStyle(CircularProgressViewStyle())
+                        } else {
+                            VStack(alignment: .leading) {
+                                SearchBar(searchText: $searchText)
+                                    .padding([.top, .bottom], 16)
+                                homeViewList
+                            }
+                            .navigationTitle(homeViewModel.category ?? "")
+                            .navigationBarHidden(homeViewModel.category == nil)
+                            .toolbar {
+                                
+                                ToolbarItem(placement: .navigationBarTrailing) {
+                                    Button(action: {
+                                        homeViewModel.deleteArticles()
+                                        shouldPopToRootView = true
+                                    }) {
+                                        Image(uiImage: UIImage(named: "arrows-circle")!)
+                                            .resizable()
+                                            .scaledToFit()
+                                    }
+                                    .frame(width: 40, height: 40, alignment: .trailing)
+                                }
+                            }
                         }
-                        .navigationTitle(homeViewModel.category ?? "")
-                        .navigationBarHidden(homeViewModel.category == nil)
                     }
                 }
             }
-        }
-        .accentColor(Color.black)
-        .onReceive(timer) { _ in
-            homeViewModel.getArticles(updateTheArticles: true)
+            .accentColor(Color.black)
+            .onReceive(timer) { _ in
+                homeViewModel.getArticles(updateTheArticles: true)
+            }
         }
     }
     
