@@ -40,6 +40,7 @@ struct HomeView: View {
                 }
             }
         }
+        .accentColor(Color.black)
         .onReceive(timer) { _ in
             homeViewModel.getArticles(updateTheArticles: true)
         }
