@@ -9,17 +9,12 @@ import SwiftUI
 
 struct SplashView: View {
     
-    @ObservedObject var viewRouter: ViewRouter
     @State var isActive:Bool = false
     
     var body: some View {
         VStack {
             if self.isActive {
-                if viewRouter.currentPage == "onboardingView" {
-                    OnboardingView()
-                } else if viewRouter.currentPage == "homeView" {
-                    HomeView()
-                }
+                HomeTabView()
             } else {
                 Image("splash")
                     .frame(width:  UIScreen.main.bounds.width - 40, height: UIScreen.main.bounds.width / 4 * 3, alignment: .center)
@@ -37,8 +32,8 @@ struct SplashView: View {
 }
 
 
-//struct BaseView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SplashView().environmentObject(ViewRouter())
-//    }
-//}
+struct BaseView_Previews: PreviewProvider {
+    static var previews: some View {
+        SplashView()
+    }
+}

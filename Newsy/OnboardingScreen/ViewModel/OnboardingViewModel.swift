@@ -10,14 +10,8 @@ import Combine
 
 class OnboardingViewModel: ObservableObject {
     
-    var objectWillChange = PassthroughSubject<Void, Never>()
+    @Published var articles = [Article]()
     private let networkManager = NetworkManager()
-    
-    var articles = [Article]() {
-        didSet {
-            objectWillChange.send()
-        }
-    }
     
     func saveArticleRequiredInfo(category: Category, country: Country) {
         ArticleHelper.saveArticleRequiredInfo(category: category, country: country)

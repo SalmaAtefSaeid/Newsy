@@ -14,12 +14,14 @@ struct DetailsView: View {
     
     var body: some View {
         ScrollView {
-            
-            let placeholder = UIImage(named: "no-image")!
-            WebImage(url: URL(string: article.urlToImage ?? "")).placeholder(Image(uiImage: placeholder))
-                .resizable()
-                .frame(width: UIScreen.main.bounds.width, height: 400, alignment: .center)
-                .scaledToFit()
+            WebImage(url: URL(string: article.urlToImage ?? "")) { image in
+                image.resizable()
+            } placeholder: {
+                Image("no-image")
+            }
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: UIScreen.main.bounds.width, height: 400, alignment: .center)
             
             VStack(alignment: .leading) {
                 HStack {
@@ -47,14 +49,14 @@ struct DetailsView: View {
             }
             .padding()
         }
+        .ignoresSafeArea(edges: .top)
         .navigationTitle(article.title ?? "")
         .navigationBarTitleDisplayMode(.inline)
-        .accentColor( .black)
     }
 }
 
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsView(article: Article(source: ArticleSource(id: "", name: ""), author: "", title: "", description: "", url: URL(string: ""), urlToImage: ""))
+        DetailsView(article: .previewData[1])
     }
 }

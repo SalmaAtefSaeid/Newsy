@@ -35,7 +35,7 @@ struct PersistenceController {
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Newsy")
         if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -66,7 +66,7 @@ struct PersistenceController {
         let request = T.fetchRequest()
         do {
             let result = try container.viewContext.fetch(request)
-            return result as! [T]
+            return result as? [T] ?? []
         } catch {
             print(error.localizedDescription)
             return []
