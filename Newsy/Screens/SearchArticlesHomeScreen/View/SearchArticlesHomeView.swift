@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-import Combine
 
 struct SearchArticlesHomeView: View {
     
@@ -43,6 +42,19 @@ struct SearchArticlesHomeView: View {
                 }
                 .navigationTitle(viewModel.category ?? "")
                 .navigationBarHidden(viewModel.category == nil)
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        viewModel.deleteArticles()
+                        shouldPopToRootView = true
+                    }) {
+                        Image(uiImage: UIImage(named: "arrows-circle")!)
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .frame(width: 35, height: 35, alignment: .trailing)
+                }
             }
             .accentColor(Color.black)
             .onReceive(timer) { _ in

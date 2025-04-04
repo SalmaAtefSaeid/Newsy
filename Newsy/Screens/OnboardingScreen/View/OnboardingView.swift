@@ -26,9 +26,10 @@ struct OnboardingView: View {
         if showView {
             SearchArticlesHomeView() // Navigate to the search view
         } else {
-            NavigationView {
+            VStack {
                 mainViewList
                     .navigationBarTitle(Text("Onboarding".localized()), displayMode: .large)
+                Spacer()
             }
         }
     }

@@ -43,6 +43,7 @@
 		DDC3D7412D9F556D00747A70 /* CustomPickerTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC3D7402D9F556D00747A70 /* CustomPickerTextView.swift */; };
 		DDC3D7432D9F55A700747A70 /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC3D7422D9F55A700747A70 /* CustomPickerView.swift */; };
 		DDC3D7452D9F67C400747A70 /* OnboardingAndSearchTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC3D7442D9F67C400747A70 /* OnboardingAndSearchTabView.swift */; };
+		DDC3D74A2D9F6E5800747A70 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC3D7492D9F6E5600747A70 /* ErrorModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		DDC3D7402D9F556D00747A70 /* CustomPickerTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerTextView.swift; sourceTree = "<group>"; };
 		DDC3D7422D9F55A700747A70 /* CustomPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
 		DDC3D7442D9F67C400747A70 /* OnboardingAndSearchTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAndSearchTabView.swift; sourceTree = "<group>"; };
+		DDC3D7492D9F6E5600747A70 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 		D90F39D827629D1F00957FA1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DDC3D7492D9F6E5600747A70 /* ErrorModel.swift */,
 				D90F39E22762ABD900957FA1 /* Article.swift */,
 				D90F39E42762AF0800957FA1 /* Category.swift */,
 				D90F39F92762C9FF00957FA1 /* ArticleAPIResponse.swift */,
@@ -448,6 +451,7 @@
 				DDC3D7392D9F2EFF00747A70 /* HomeTabView.swift in Sources */,
 				DDC3D73E2D9F300F00747A70 /* ArticlesListHomeViewModel.swift in Sources */,
 				D90F39DE2762A22B00957FA1 /* NetworkConstants.swift in Sources */,
+				DDC3D74A2D9F6E5800747A70 /* ErrorModel.swift in Sources */,
 				D90F39D127629C7100957FA1 /* Newsy.xcdatamodeld in Sources */,
 				D90F39CE27629C7100957FA1 /* Persistence.swift in Sources */,
 				D90F39E82762B01B00957FA1 /* OnboardingViewModel.swift in Sources */,

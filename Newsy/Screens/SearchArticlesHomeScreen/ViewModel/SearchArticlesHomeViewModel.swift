@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import Combine
 
+@MainActor
 final class SearchArticlesHomeViewModel: ObservableObject {
     
     @Published var articles = [Article]()
     @Published var networkError: NSError?
     @Published var noArticleFound = false
-    private let networkManager = NetworkManager()
     
     var category: String?
     
@@ -36,25 +35,26 @@ final class SearchArticlesHomeViewModel: ObservableObject {
                 "country": articleRequiredInfo.country,
                 "apiKey": NetworkConstants.apiKey
             ]
-            
-            networkManager.sendHTTPRequest(urlString: NetworkConstants.requestToGetTopHeadlines, httpMethod: HTTPMethodType.get.rawValue, parameters: parameters, successHandler: { [weak self] (articleAPIResponse: ArticleAPIResponse) in
-                guard let self = self else { return }
-                
-                if let articles = articleAPIResponse.articles, articleAPIResponse.status == "ok" {
-                    if articles.isEmpty {
-                        self.noArticleFound = true
+            Task {
+                do {
+                    let articleAPIResponse: ArticleAPIResponse = try await NetworkManager.shared.sendHTTPRequest(urlString: NetworkConstants.requestToGetTopHeadlines, httpMethod: .get, parameters: parameters)
+                    if let articles = articleAPIResponse.articles, articleAPIResponse.status == "ok" {
+                        if articles.isEmpty {
+                            self.noArticleFound = true
+                        }
+                        self.articles = articles
+                        articles.forEach { $0.store() }
+                    } else {
+                        // Handle failure
+                        let error = NSError(domain: "News API", code: Int(articleAPIResponse.code ?? "-1") ?? -1, userInfo: [NSLocalizedDescriptionKey: articleAPIResponse.status as Any])
+                        self.networkError = error
                     }
-                    self.articles = articles
-                    articles.forEach { $0.store() }
-                } else {
-                    // Handle failure
-                    let error = NSError(domain: "News API", code: Int(articleAPIResponse.code ?? "-1") ?? -1, userInfo: [NSLocalizedDescriptionKey: articleAPIResponse.status as Any])
-                    self.networkError = error
+                } catch {
+                    print(error.localizedDescription)
+                    self.networkError = error as NSError
                 }
-            }, failureHandler: { [weak self] (error) in
-                print(error.localizedDescription)
-                self?.networkError = error as NSError
-            })
+            }
+            
         } else {
             self.articles = articlesList
         }
