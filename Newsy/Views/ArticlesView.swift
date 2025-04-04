@@ -6,18 +6,13 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct ArticlesView : View {
     let article: Article
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            WebImage(url: URL(string: article.urlToImage ?? "")) { image in
-                image.resizable()
-            } placeholder: {
-                Image("no-image")
-            }
+            RemoteWebImage(urlString: article.urlToImage ?? "")
             .frame(width: UIScreen.main.bounds.width - 70, height: UIScreen.main.bounds.width / 4 * 3, alignment: .center)
             .scaledToFit()
             
@@ -26,14 +21,14 @@ struct ArticlesView : View {
                 .opacity(0.3)
             
             VStack {
-                Text(verbatim: article.source?.name ?? "")
+                Text(article.source?.name ?? "")
                     .foregroundColor(.white)
                     .font(.subheadline)
                     .lineLimit(nil)
                     .padding([.leading, .trailing])
                     .frame(width: UIScreen.main.bounds.width - 70, alignment: .bottomLeading)
                 
-                Text(verbatim: article.title ?? "")
+                Text(article.title ?? "")
                     .foregroundColor(.white)
                     .font(.headline)
                     .lineLimit(nil)

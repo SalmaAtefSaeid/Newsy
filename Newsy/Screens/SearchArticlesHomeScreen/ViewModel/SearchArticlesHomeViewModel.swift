@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 final class SearchArticlesHomeViewModel: ObservableObject {
     
     @Published var articles = [Article]()
@@ -16,10 +15,7 @@ final class SearchArticlesHomeViewModel: ObservableObject {
     
     var category: String?
     
-    init() {
-        getArticles(updateTheArticles: false)
-    }
-    
+    @MainActor
     func getArticles(updateTheArticles: Bool) {
         networkError = nil
         noArticleFound = false
@@ -61,13 +57,11 @@ final class SearchArticlesHomeViewModel: ObservableObject {
     }
     
     func fetchArticles() -> [Article] {
-        let persistence = PersistenceController.shared
-        let articlesDB = persistence.fetch(ArticleDB.self)
-        return articlesDB.map { ArticleHelper.mapFromArticleDB(articleDB: $0) }
+        return ArticleHelper.fetchArticles()
     }
     
     func deleteArticles() {
-        PersistenceController.shared.delete(entityName: "ArticleDB")
+        ArticleHelper.deleteAllData()
         ViewRouter.sharedInstance().saveData(didLaunchBefore: false)
     }
 }

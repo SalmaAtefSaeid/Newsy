@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct SearchArticlesHomeView: View {
     
@@ -49,7 +48,7 @@ struct SearchArticlesHomeView: View {
                         viewModel.deleteArticles()
                         shouldPopToRootView = true
                     }) {
-                        Image(uiImage: UIImage(named: "arrows-circle")!)
+                        Image("arrows-circle")
                             .resizable()
                             .scaledToFit()
                     }
@@ -59,6 +58,9 @@ struct SearchArticlesHomeView: View {
             .accentColor(Color.black)
             .onReceive(timer) { _ in
                 viewModel.getArticles(updateTheArticles: true)
+            }
+            .task {
+                viewModel.getArticles(updateTheArticles: false)
             }
         }
     }

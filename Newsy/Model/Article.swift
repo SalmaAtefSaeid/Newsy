@@ -28,15 +28,19 @@ struct Article: Codable, Hashable, Identifiable {
     }
     
     func store() {
-        let persistence = PersistenceController.shared
-        guard let article = persistence.add(ArticleDB.self) else {return}
+        let context = PersistenceController.shared.container.viewContext
+        let article = ArticleDB(context: context)
         article.articleSource = source?.name
         article.author = author
         article.title = title
         article.desc = description
         article.url = url?.absoluteString
         article.urlToImage = urlToImage
-        persistence.save()
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save article: \(error.localizedDescription)")
+        }
     }
 }
 

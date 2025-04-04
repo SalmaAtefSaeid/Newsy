@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct DetailsView: View {
     
@@ -14,14 +13,9 @@ struct DetailsView: View {
     
     var body: some View {
         ScrollView {
-            WebImage(url: URL(string: article.urlToImage ?? "")) { image in
-                image.resizable()
-            } placeholder: {
-                Image("no-image")
-            }
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: UIScreen.main.bounds.width, height: 400, alignment: .center)
+            RemoteWebImage(urlString: article.urlToImage ?? "")
+                .aspectRatio(contentMode: .fill)
+                .frame(width: UIScreen.main.bounds.width, height: 400, alignment: .center)
             
             VStack(alignment: .leading) {
                 HStack {
